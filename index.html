@@ -1,9 +1,20 @@
-<!DOCTYPE html>
+<div class="feature-item">
+                        <input type="checkbox" id="ceceo" checked>
+                        <label for="ceceo">Ceceo distinction θ≠s (Cádiz)</label>
+                    </div>
+                    <div class="feature-item">
+                        <input type="checkbox" id="finalRDeletionCadiz" checked>
+                        <label for="finalRDeletionCadiz">Final r-deletion in infinitives (Cádiz)</label>
+                    </div>
+                    <div class="feature-item">
+                        <input type="checkbox" id="finalSDeletion" checked>
+                        <label for="finalSDeletion">Final s-deletion/aspiration (Cádiz)</label>
+                    </div><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spanish IPA Transcriber - Proper Syllabification</title>
+    <title>Spanish IPA Transcriber - With Rioplatense</title>
     <style>
         * {
             margin: 0;
@@ -189,8 +200,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Spanish IPA Transcriber - Proper Engine</h1>
-            <p class="subtitle">With correct syllabification and stress placement</p>
+            <h1>Spanish IPA Transcriber - Complete Engine</h1>
+            <p class="subtitle">Dominican, Mexican, Rioplatense, and Cádiz varieties with proper syllabification</p>
         </div>
 
         <div class="main-content">
@@ -208,6 +219,8 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
                 <select id="dialectSelect">
                     <option value="dominican">Dominican (Santo Domingo)</option>
                     <option value="mexican">Mexican (Mexico City)</option>
+                    <option value="rioplatense">Rioplatense (Buenos Aires/Montevideo)</option>
+                    <option value="cadiz">Cádiz (Andalusian)</option>
                 </select>
             </div>
 
@@ -225,6 +238,18 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
                     <div class="feature-item">
                         <input type="checkbox" id="assibilatedR" checked>
                         <label for="assibilatedR">Assibilated r→ʂ (Mexican)</label>
+                    </div>
+                    <div class="feature-item">
+                        <input type="checkbox" id="sheismo" checked>
+                        <label for="sheismo">Sheísmo ll/y→ʃ (Rioplatense)</label>
+                    </div>
+                    <div class="feature-item">
+                        <input type="checkbox" id="sAspiration" checked>
+                        <label for="sAspiration">S-aspiration s→h (Rioplatense)</label>
+                    </div>
+                    <div class="feature-item">
+                        <input type="checkbox" id="finalRDeletion" checked>
+                        <label for="finalRDeletion">Final tap deletion (Rioplatense casual)</label>
                     </div>
                     <div class="feature-item">
                         <input type="checkbox" id="showSyllables" checked>
@@ -246,7 +271,7 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
 
     <script>
         // Step 1: Orthography to phonemes
-        function orthographyToPhonemes(text) {
+        function orthographyToPhonemes(text, dialect) {
             let result = text.toLowerCase();
             
             // Remove silent h
@@ -254,13 +279,20 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
             
             // Handle digraphs
             result = result.replace(/ch/g, 'tʃ');
-            result = result.replace(/ll/g, 'ʝ'); // yeísmo
+            result = result.replace(/ll/g, 'ʝ'); // yeísmo (will be modified by dialect later)
             result = result.replace(/rr/g, 'r');
             result = result.replace(/qu/g, 'k');
             
-            // Handle c/z
-            result = result.replace(/c([ei])/g, 's$1');
-            result = result.replace(/z/g, 's');
+            // Handle c/z - dialect-specific
+            if (dialect === 'cadiz') {
+                // Cádiz maintains distinction between s and θ (ceceo can merge them)
+                result = result.replace(/c([ei])/g, 'θ$1');
+                result = result.replace(/z/g, 'θ');
+            } else {
+                // Other dialects have seseo
+                result = result.replace(/c([ei])/g, 's$1');
+                result = result.replace(/z/g, 's');
+            }
             result = result.replace(/c/g, 'k');
             
             // Handle g
@@ -269,11 +301,16 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
             
             // Basic mappings
             result = result.replace(/v/g, 'b');
-            result = result.replace(/y/g, 'ʝ');
+            // Handle y: consonantal y → ʝ, but word-final y in diphthongs → i
+            result = result.replace(/y(?=[aeiou])/g, 'ʝ'); // consonantal y before vowels
+            result = result.replace(/y$/g, 'i'); // word-final y in diphthongs (soy, voy, etc.)
+            result = result.replace(/([aeiou])y/g, '$1i'); // y after vowels in diphthongs
+            result = result.replace(/^y/g, 'ʝ'); // word-initial y
             result = result.replace(/j/g, 'x');
             result = result.replace(/ñ/g, 'ɲ');
             
-            // Convert single r to tap ɾ (will handle trill contexts later)
+            // Convert single r to tap ɾ, but word-final r gets special treatment for trill potential
+            result = result.replace(/r$/g, 'R'); // Mark word-final r for special handling
             result = result.replace(/r/g, 'ɾ');
             
             return result;
@@ -282,7 +319,7 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
         // Step 2: Syllabification
         function syllabify(phonemes) {
             const vowels = 'aeiou';
-            const consonants = 'bβdðgɣptkfθsxmnɲlrɾʝtʃɲj';
+            const consonants = 'bβdðgɣptkfθsxmnɲlrɾʝtʃɲjʃʒRθ';
             
             const syllables = [];
             let currentSyllable = '';
@@ -399,41 +436,108 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
                     result = result.replace('ˈ', '');
                 }
                 
-                // DEBUG: Log what we're processing
-                if (features.showSyllables && (result.includes('ɾ') || result.includes('r'))) {
-                    console.log(`Processing syllable: "${result}" (original: "${syllable}")`);
+                // Cádiz ceceo - only affects orthographic c/z (θ), not orthographic s
+                // This is already handled in orthographyToPhonemes where c/z → θ for Cádiz
+                // Ceceo would be a different realization of θ, but we'll represent it as θ for simplicity
+                
+                // Cádiz final r-deletion in infinitives
+                if (dialect === 'cadiz' && features.finalRDeletionCadiz) {
+                    const isLastSyllable = index === arr.length - 1;
+                    if (isLastSyllable) {
+                        // Delete word-final r/R (both taps and trills in infinitives)
+                        result = result.replace(/[ɾrR]$/, '');
+                    }
+                }
+                
+                // Cádiz final s-deletion/aspiration
+                if (dialect === 'cadiz' && features.finalSDeletion) {
+                    const isLastSyllable = index === arr.length - 1;
+                    if (isLastSyllable) {
+                        // Word-final s/θ → h or deletion
+                        result = result.replace(/[sθ]$/, 'h');
+                    }
+                    // Pre-consonantal s/θ → h
+                    result = result.replace(/[sθ](?=[bβdðgɣptkfxmnɲʝtʃjʃʒRθ])/g, 'h');
+                }
+                
+                // Handle word-final R (potential for trill in sentence-final position, infinitives)
+                if (dialect === 'rioplatense') {
+                    const isLastSyllable = index === arr.length - 1;
+                    if (isLastSyllable && result.includes('R')) {
+                        // Check if this is an infinitive or sentence-final position
+                        // For now, convert R to r (trill) in word-final position
+                        result = result.replace(/R/g, 'r');
+                    } else {
+                        // Convert R to tap in non-final positions
+                        result = result.replace(/R/g, 'ɾ');
+                    }
+                } else {
+                    // For other dialects, convert R to tap
+                    result = result.replace(/R/g, 'ɾ');
                 }
                 
                 // Dominican liquid substitution (r/ɾ → l̪ in syllable-final or word-final position)
                 if (dialect === 'dominican' && features.liquidSub) {
-                    const beforeSub = result;
                     const isLastSyllable = index === arr.length - 1;
                     
-                    // Replace ɾ or r in syllable-final position (before a consonant) or word-final
                     if (isLastSyllable) {
-                        // Word-final: replace ɾ or r at the end
-                        result = result.replace(/[ɾr]$/, 'l̪');
+                        // Word-final: replace ɾ, r, or R at the end
+                        result = result.replace(/[ɾrR]$/, 'l̪');
                     } else {
-                        // Syllable-final: replace ɾ or r only before a consonant (coda position)
-                        result = result.replace(/[ɾr](?=[bβdðgɣptkfθsxmnɲʝtʃj])/g, 'l̪');
-                    }
-                    
-                    if (beforeSub !== result) {
-                        console.log(`Liquid sub: "${beforeSub}" → "${result}"`);
+                        // Syllable-final: replace ɾ, r, or R only before a consonant (coda position)
+                        result = result.replace(/[ɾrR](?=[bβdðgɣptkfθsxmnɲʝtʃjʃʒRθ])/g, 'l̪');
                     }
                 }
                 
-                // General Spanish rules
-                result = result.replace(/([aeiou])b/g, '$1β');
-                result = result.replace(/([aeiou])d/g, '$1ð');
-                result = result.replace(/([aeiou])g/g, '$1ɣ');
+                // Rioplatense sheísmo (ll/y → ʃ)
+                if (dialect === 'rioplatense' && features.sheismo) {
+                    result = result.replace(/ʝ/g, 'ʃ');
+                }
+                
+                // Rioplatense s-aspiration (s → h before consonants and word-finally)
+                if (dialect === 'rioplatense' && features.sAspiration) {
+                    const isLastSyllable = index === arr.length - 1;
+                    
+                    if (isLastSyllable) {
+                        // Word-final s → h
+                        result = result.replace(/s$/, 'h');
+                    }
+                    // Pre-consonantal s → h
+                                            result = result.replace(/s(?=[bβdðgɣptkfθxmnɲʝtʃjʃʒRθ])/g, 'h');
+                }
+                
+                // Rioplatense final r-deletion (optional - some speakers delete word-final /ɾ/)
+                if (dialect === 'rioplatense' && features.finalRDeletion) {
+                    const isLastSyllable = index === arr.length - 1;
+                    if (isLastSyllable) {
+                        // Only delete taps, not trills (keep the emphatic/infinitive r)
+                        result = result.replace(/ɾ$/, '');
+                    }
+                }
+                
+                // General Spanish rules: voiced stops → fricatives except after pause, nasals, and /l/ (for /d/)
+                // b → β everywhere except after pause or nasals
+                result = result.replace(/b(?![mnɲ])/g, 'β');
+                // Keep b after nasals
+                result = result.replace(/([mnɲ])β/g, '$1b');
+                
+                // d → ð everywhere except after pause, nasals, or /l/
+                result = result.replace(/d/g, 'ð');  
+                // Keep d after nasals and /l/
+                result = result.replace(/([mnɲl̪])ð/g, '$1d');
+                
+                // g → ɣ everywhere except after pause or nasals
+                result = result.replace(/g(?![mnɲ])/g, 'ɣ');
+                // Keep g after nasals  
+                result = result.replace(/([mnɲ])ɣ/g, '$1g');
                 
                 // Mexican assibilated R
                 if (dialect === 'mexican' && features.assibilatedR) {
-                    // Mexican r/ɾ → ʂ (except word-initial)
-                    if (!result.startsWith('ɾ') && !result.startsWith('r')) {
+                    // Mexican r/ɾ → ʂ (except word-initial and trills)
+                    if (!result.startsWith('ɾ') && !result.startsWith('r') && !result.startsWith('R')) {
                         result = result.replace(/ɾ/g, 'ʂ');
                         result = result.replace(/r/g, 'ʂ');
+                        result = result.replace(/R/g, 'ʂ');
                     }
                 }
                 
@@ -464,6 +568,12 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
                 liquidSub: document.getElementById('liquidSub').checked,
                 sDelete: document.getElementById('sDelete').checked,
                 assibilatedR: document.getElementById('assibilatedR').checked,
+                sheismo: document.getElementById('sheismo').checked,
+                sAspiration: document.getElementById('sAspiration').checked,
+                finalRDeletion: document.getElementById('finalRDeletion').checked,
+                ceceo: document.getElementById('ceceo').checked,
+                finalRDeletionCadiz: document.getElementById('finalRDeletionCadiz').checked,
+                finalSDeletion: document.getElementById('finalSDeletion').checked,
                 showSyllables: document.getElementById('showSyllables').checked
             };
 
@@ -474,22 +584,26 @@ vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
             words.forEach(word => {
                 if (word.trim()) {
                     // Process word
-                    let phonemes = orthographyToPhonemes(word);
+                    let phonemes = orthographyToPhonemes(word, dialect);
                     let syllables = syllabify(phonemes);
                     syllables = applyStress(syllables, word);
                     
                     // Apply Dominican velar r rule BEFORE other syllable processing
                     if (dialect === 'dominican') {
                         // Only the FIRST syllable can have word-initial r → ɣ
-                        if (syllables[0] && (syllables[0].startsWith('ɾ') || syllables[0].startsWith('r') || 
-                                           syllables[0].startsWith('ˈɾ') || syllables[0].startsWith('ˈr'))) {
+                        if (syllables[0] && (syllables[0].startsWith('ɾ') || syllables[0].startsWith('r') || syllables[0].startsWith('R') ||
+                                           syllables[0].startsWith('ˈɾ') || syllables[0].startsWith('ˈr') || syllables[0].startsWith('ˈR'))) {
                             if (syllables[0].startsWith('ˈɾ')) {
                                 syllables[0] = 'ˈɣ' + syllables[0].slice(2);
                             } else if (syllables[0].startsWith('ˈr')) {
                                 syllables[0] = 'ˈɣ' + syllables[0].slice(2);
+                            } else if (syllables[0].startsWith('ˈR')) {
+                                syllables[0] = 'ˈɣ' + syllables[0].slice(2);
                             } else if (syllables[0].startsWith('ɾ')) {
                                 syllables[0] = 'ɣ' + syllables[0].slice(1);
                             } else if (syllables[0].startsWith('r')) {
+                                syllables[0] = 'ɣ' + syllables[0].slice(1);
+                            } else if (syllables[0].startsWith('R')) {
                                 syllables[0] = 'ɣ' + syllables[0].slice(1);
                             }
                         }
