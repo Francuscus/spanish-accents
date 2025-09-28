@@ -1,522 +1,787 @@
-<!DOCTYPE html>
+<div class="feature-item">
+                        <input type="checkbox" id="liquidSubCadiz" checked>
+                        <label for="liquidSubCadiz">Liquid substitution r→l̪ (Cádiz)</label>
+                    </div>                    <div class="feature-item">
+                        <input type="checkbox" id="nVelarization" checked>
+                        <label for="nVelarization">N-velarization n→ŋ (Dominican)</label>
+                    </div>                    <div class="feature-item">
+<input type="checkbox" id="ceceo" checked>
+<label for="ceceo">Ceceo distinction θ≠s (Cádiz)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="finalRDeletionCadiz" checked>
+                        <label for="finalRDeletionCadiz">Final r-deletion in infinitives (Cádiz)</label>
+                        <label for="finalRDeletionCadiz">Final r-deletion in infinitives (Cádiz casual)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="finalSDeletion" checked>
+<label for="finalSDeletion">Final s-deletion/aspiration (Cádiz)</label>
+</div><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Spanish IPA Transcriber - Complete Engine (only ch→tʃ fix)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Georgia', serif;
-      line-height: 1.6;
-      color: #2c3e50;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1200px; margin: 0 auto;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      overflow: hidden;
-    }
-    .header {
-      background: linear-gradient(135deg, #ff6b6b, #feca57);
-      color: white; padding: 30px; text-align: center;
-    }
-    .header h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-    .subtitle { font-size: 1.1rem; opacity: 0.9; }
-    .main-content { padding: 40px; }
-    .input-section { margin-bottom: 30px; }
-    .input-section h2 { color: #2c3e50; margin-bottom: 15px; font-size: 1.5rem; }
-    textarea {
-      width: 100%; height: 140px; padding: 15px;
-      border: 2px solid #e0e6ed; border-radius: 10px;
-      font-size: 16px; font-family: 'Georgia', serif;
-      resize: vertical; transition: all 0.3s ease;
-    }
-    textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-    .controls { margin: 20px 0; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
-    .transcribe-btn {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white; border: none; padding: 12px 25px; border-radius: 8px;
-      font-size: 16px; font-weight: bold; cursor: pointer;
-      transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102,126,234,0.3);
-    }
-    .transcribe-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
-    .output-section {
-      background: #f8f9fa; border-radius: 15px; padding: 25px; margin-top: 30px;
-    }
-    .output-section h2 { color: #2c3e50; margin-bottom: 20px; }
-    .transcription-result {
-      background: white; border: 2px solid #e0e6ed; border-radius: 10px;
-      padding: 20px; font-family: 'Courier New', monospace; font-size: 18px;
-      line-height: 1.8; color: #2c3e50; min-height: 100px; white-space: pre-wrap;
-    }
-    .feature-toggle {
-      background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .feature-toggle h3 { margin-bottom: 15px; color: #2c3e50; }
-    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
-    .feature-item {
-      display: flex; align-items: center; gap: 8px; padding: 8px;
-      border-radius: 5px; transition: background-color 0.2s ease;
-    }
-    .feature-item:hover { background-color: #f0f0f0; }
-    .feature-item input[type="checkbox"] { margin: 0; }
-    .feature-item label { font-size: 14px; color: #555; cursor: pointer; }
-    .dialect-selector { margin-bottom: 20px; }
-    .dialect-selector select {
-      padding: 10px; border: 2px solid #e0e6ed; border-radius: 8px;
-      font-size: 16px; background: white;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spanish IPA Transcriber - With Rioplatense</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Georgia', serif;
+line-height: 1.6;
+color: #2c3e50;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+padding: 20px;
+}
+
+.container {
+max-width: 1200px;
+margin: 0 auto;
+background: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(10px);
+border-radius: 20px;
+box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+}
+
+.header {
+background: linear-gradient(135deg, #ff6b6b, #feca57);
+color: white;
+padding: 30px;
+text-align: center;
+}
+
+.header h1 {
+font-size: 2.5rem;
+margin-bottom: 10px;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+font-size: 1.1rem;
+opacity: 0.9;
+}
+
+.main-content {
+padding: 40px;
+}
+
+.input-section {
+margin-bottom: 30px;
+}
+
+.input-section h2 {
+color: #2c3e50;
+margin-bottom: 15px;
+font-size: 1.5rem;
+}
+
+textarea {
+width: 100%;
+height: 120px;
+padding: 15px;
+border: 2px solid #e0e6ed;
+border-radius: 10px;
+font-size: 16px;
+font-family: 'Georgia', serif;
+resize: vertical;
+transition: all 0.3s ease;
+}
+
+textarea:focus {
+outline: none;
+border-color: #667eea;
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.controls {
+margin: 20px 0;
+display: flex;
+flex-wrap: wrap;
+gap: 15px;
+align-items: center;
+}
+
+.transcribe-btn {
+background: linear-gradient(135deg, #667eea, #764ba2);
+color: white;
+border: none;
+padding: 12px 25px;
+border-radius: 8px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.transcribe-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.output-section {
+background: #f8f9fa;
+border-radius: 15px;
+padding: 25px;
+margin-top: 30px;
+}
+
+.output-section h2 {
+color: #2c3e50;
+margin-bottom: 20px;
+}
+
+.transcription-result {
+background: white;
+border: 2px solid #e0e6ed;
+border-radius: 10px;
+padding: 20px;
+font-family: 'Courier New', monospace;
+font-size: 18px;
+line-height: 1.8;
+color: #2c3e50;
+min-height: 100px;
+white-space: pre-wrap;
+}
+
+.feature-toggle {
+background: white;
+border-radius: 10px;
+padding: 20px;
+margin-bottom: 20px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-toggle h3 {
+margin-bottom: 15px;
+color: #2c3e50;
+}
+
+.feature-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 10px;
+}
+
+.feature-item {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 8px;
+border-radius: 5px;
+transition: background-color 0.2s ease;
+}
+
+.feature-item:hover {
+background-color: #f0f0f0;
+}
+
+.feature-item input[type="checkbox"] {
+margin: 0;
+}
+
+.feature-item label {
+font-size: 14px;
+color: #555;
+cursor: pointer;
+}
+
+.dialect-selector {
+margin-bottom: 20px;
+}
+
+.dialect-selector select {
+padding: 10px;
+border: 2px solid #e0e6ed;
+border-radius: 8px;
+font-size: 16px;
+background: white;
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Spanish IPA Transcriber - Complete Engine</h1>
-      <p class="subtitle">Dominican, Mexican, Rioplatense (Argentina), and Cádiz varieties — proper syllabification & stress</p>
-    </div>
+<div class="container">
+<div class="header">
+<h1>Spanish IPA Transcriber - Complete Engine</h1>
+<p class="subtitle">Dominican, Mexican, Rioplatense, and Cádiz varieties with proper syllabification</p>
+</div>
 
-    <div class="main-content">
-      <div class="input-section">
-        <h2>Enter Spanish Text</h2>
-        <textarea id="inputText">hola chicos ..</textarea>
-      </div>
+<div class="main-content">
+<div class="input-section">
+<h2>Enter Spanish Text</h2>
+<textarea id="inputText" placeholder="Voy a vivir el momento Para entender el destino Voy a escuchar en silencio Para encontrar el camino">empieza a soñar, a reir (voy a reir)
+¡óyeme! (voy a bailar)
+siente y baila y goza que la vida es una sola
+(voy a reir, voy a bailar)
+vive, sigue siempre pa'lante, no mires pa' atrás</textarea>
+</div>
 
-      <div class="dialect-selector">
-        <label for="dialectSelect">Choose dialect: </label>
-        <select id="dialectSelect">
-          <option value="dominican">Dominican (Santo Domingo)</option>
-          <option value="mexican">Mexican (Mexico City)</option>
-          <option value="rioplatense">Rioplatense (Buenos Aires/Montevideo)</option>
-          <option value="cadiz">Cádiz (Andalusian)</option>
-        </select>
-      </div>
+<div class="dialect-selector">
+<label for="dialectSelect">Choose dialect: </label>
+<select id="dialectSelect">
+<option value="dominican">Dominican (Santo Domingo)</option>
+<option value="mexican">Mexican (Mexico City)</option>
+<option value="rioplatense">Rioplatense (Buenos Aires/Montevideo)</option>
+<option value="cadiz">Cádiz (Andalusian)</option>
+</select>
+</div>
 
-      <div class="feature-toggle">
-        <h3>Features</h3>
-        <div class="feature-grid">
-          <!-- From your UI -->
-          <div class="feature-item">
-            <input type="checkbox" id="liquidSubCadiz" checked>
-            <label for="liquidSubCadiz">Liquid substitution r→l̪ (Cádiz)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="nVelarization" checked>
-            <label for="nVelarization">N-velarization n→ŋ (Dominican)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="ceceo" checked>
-            <label for="ceceo">Ceceo distinction θ≠s (Cádiz)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="finalRDeletionCadiz" checked>
-            <label for="finalRDeletionCadiz">Final r-deletion in infinitives (Cádiz / casual)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="finalSDeletion" checked>
-            <label for="finalSDeletion">Final s-deletion/aspiration (Cádiz)</label>
-          </div>
+<div class="feature-toggle">
+<h3>Features</h3>
+<div class="feature-grid">
+<div class="feature-item">
+<input type="checkbox" id="liquidSub" checked>
+<label for="liquidSub">Liquid substitution r→l̪ (Dominican)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="sDelete" checked>
+<label for="sDelete">S-deletion (Dominican)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="assibilatedR" checked>
+<label for="assibilatedR">Assibilated r→ʂ (Mexican)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="sheismo" checked>
+<label for="sheismo">Sheísmo ll/y→ʃ (Rioplatense)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="sAspiration" checked>
+<label for="sAspiration">S-aspiration s→h (Rioplatense)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="finalRDeletion" checked>
+<label for="finalRDeletion">Final tap deletion (Rioplatense casual)</label>
+</div>
+<div class="feature-item">
+<input type="checkbox" id="showSyllables" checked>
+<label for="showSyllables">Show syllable boundaries</label>
+</div>
+</div>
+</div>
 
-          <!-- From “Complete Engine” -->
-          <div class="feature-item">
-            <input type="checkbox" id="liquidSub" checked>
-            <label for="liquidSub">Liquid substitution r→l̪ (Dominican)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="sDelete" checked>
-            <label for="sDelete">S-deletion (Dominican)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="assibilatedR" checked>
-            <label for="assibilatedR">Assibilated r→ʂ (Mexican)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="sheismo" checked>
-            <label for="sheismo">Sheísmo ll/y→ʃ (Rioplatense)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="sAspiration" checked>
-            <label for="sAspiration">S-aspiration s→h (Rioplatense)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="finalRDeletion" checked>
-            <label for="finalRDeletion">Final tap deletion (Rioplatense casual)</label>
-          </div>
-          <div class="feature-item">
-            <input type="checkbox" id="showSyllables" checked>
-            <label for="showSyllables">Show syllable boundaries</label>
-          </div>
-        </div>
-      </div>
+<div class="controls">
+<button class="transcribe-btn" onclick="transcribe()">Transcribe</button>
+</div>
 
-      <div class="controls">
-        <button class="transcribe-btn" onclick="transcribe()">Transcribe</button>
-      </div>
+<div class="output-section" id="outputSection" style="display: none;">
+<h2>IPA Transcription</h2>
+<div class="transcription-result" id="transcriptionResult"></div>
+</div>
+</div>
+</div>
 
-      <div class="output-section" id="outputSection" style="display:none;">
-        <h2>IPA Transcription</h2>
-        <div class="transcription-result" id="transcriptionResult"></div>
-      </div>
-    </div>
-  </div>
+<script>
+// Step 1: Orthography to phonemes
+function orthographyToPhonemes(text, dialect) {
+let result = text.toLowerCase();
 
-  <script>
-    // ----------------------
-    // Constants
-    // ----------------------
-    const vowels = 'aeiou';
-    const weakVowels = 'iu';
-    const consonants = 'bβdðgɣptkfθsxmnɲlrɾʝtʃɲjʃʒRθjwŋ';
-    const validClusters = ['bl','br','kl','kr','dl','dr','fl','fr','gl','gr','pl','pr','tl','tr'];
+// Remove silent h
+result = result.replace(/h/g, '');
 
-    // ---------------------------------------------------------
-    // Step 1: Orthography → phonemes
-    //  ONLY CHANGE: handle 'ch' first (before removing 'h' or touching 'c')
-    // ---------------------------------------------------------
-    function orthographyToPhonemes(text, dialect) {
-      let result = (text || '').toLowerCase();
+// Handle digraphs
+result = result.replace(/ch/g, 'tʃ');
+result = result.replace(/ll/g, 'ʝ'); // yeísmo (will be modified by dialect later)
+result = result.replace(/rr/g, 'r');
+result = result.replace(/qu/g, 'k');
 
-      // ✅ FIX: map 'ch' BEFORE anything else so "chico" → "tʃiko"
-      result = result.replace(/ch/g, 'tʃ');
+// Handle c/z - dialect-specific
+if (dialect === 'cadiz') {
+// Cádiz maintains distinction between s and θ (ceceo can merge them)
+result = result.replace(/c([ei])/g, 'θ$1');
+result = result.replace(/z/g, 'θ');
+} else {
+// Other dialects have seseo
+result = result.replace(/c([ei])/g, 's$1');
+result = result.replace(/z/g, 's');
+}
+result = result.replace(/c/g, 'k');
 
-      // Remove silent h
-      result = result.replace(/h/g, '');
+// Handle g
+result = result.replace(/g([ei])/g, 'x$1');
+result = result.replace(/gu([ei])/g, 'g$1');
 
-      // Handle digraphs / base mappings
-      result = result.replace(/ll/g, 'ʝ');    // yeísmo (rioplatense toggle may change later)
-      result = result.replace(/rr/g, 'r');    // keep simple, trill treated later if needed
-      result = result.replace(/qu/g, 'k');
+// Basic mappings
+result = result.replace(/v/g, 'b');
+// Handle y: consonantal y → ʝ, but word-final y in diphthongs → i
+result = result.replace(/y(?=[aeiou])/g, 'ʝ'); // consonantal y before vowels
+result = result.replace(/y$/g, 'i'); // word-final y in diphthongs (soy, voy, etc.)
+result = result.replace(/([aeiou])y/g, '$1i'); // y after vowels in diphthongs
+result = result.replace(/^y/g, 'ʝ'); // word-initial y
+result = result.replace(/j/g, 'x');
+result = result.replace(/ñ/g, 'ɲ');
 
-      // c / z (dialect-specific)
-      if (dialect === 'cadiz') {
-        result = result.replace(/c([ei])/g, 'θ$1');
-        result = result.replace(/z/g, 'θ');
-      } else {
-        result = result.replace(/c([ei])/g, 's$1');
-        result = result.replace(/z/g, 's');
-      }
-      result = result.replace(/c/g, 'k');
+// Convert single r to tap ɾ, but word-final r gets special treatment for trill potential
+result = result.replace(/r$/g, 'R'); // Mark word-final r for special handling
+result = result.replace(/r/g, 'ɾ');
 
-      // g before e,i (very simplified)
-      result = result.replace(/g([ei])/g, 'x$1');
-      result = result.replace(/gu([ei])/g, 'g$1');
+return result;
+}
 
-      // v→b; y rules
-      result = result.replace(/v/g, 'b');
-      result = result.replace(/y(?=[aeiou])/g, 'ʝ'); // consonantal y before vowels
-      result = result.replace(/y$/g, 'i');          // word-final y: voy → boi → boi (simplified)
-      result = result.replace(/([aeiou])y/g, '$1i');
-      result = result.replace(/^y/g, 'ʝ');
+        // Step 2: Syllabification with proper diphthong/hiatus handling
+        // Step 2: Syllabification with proper diphthong/hiatus handling and consonant clusters
+function syllabify(phonemes, originalWord) {
+const strongVowels = 'aeo';
+const weakVowels = 'iu';
+const vowels = 'aeiou';
+            const consonants = 'bβdðgɣptkfθsxmnɲlrɾʝtʃɲjʃʒRθjw';
+            const consonants = 'bβdðgɣptkfθsxmnɲlrɾʝtʃɲjʃʒRθjwŋ';
+            
+            // Valid Spanish consonant clusters (consonant + liquid)
+            const validClusters = ['bl', 'br', 'kl', 'kr', 'dl', 'dr', 'fl', 'fr', 'gl', 'gr', 'pl', 'pr', 'tl', 'tr'];
 
-      // j, ñ
-      result = result.replace(/j/g, 'x');
-      result = result.replace(/ñ/g, 'ɲ');
+// Check for stressed weak vowels in original word (marked with accents)
+const stressedWeakVowels = new Set();
+if (originalWord && originalWord.length) {
+for (let i = 0; i < originalWord.length; i++) {
+const char = originalWord[i];
+if (char === 'í' || char === 'ú') {
+                        stressedWeakVowels.add(i);
+                        // Map the position in original word to position in phonemes
+                        let phonemePos = 0;
+                        let origPos = 0;
+                        while (origPos < i && phonemePos < phonemes.length) {
+                            const origChar = originalWord[origPos].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                            if (vowels.includes(origChar)) {
+                                phonemePos++;
+                            } else if (origChar !== 'h') { // skip silent h
+                                phonemePos++;
+                            }
+                            origPos++;
+                        }
+                        stressedWeakVowels.add(phonemePos);
+                        console.log(`Found stressed vowel ${char} at original position ${i}, mapped to phoneme position ${phonemePos} in word: ${originalWord}`);
+}
+}
+}
 
-      // r: mark final R, otherwise tap ɾ
-      result = result.replace(/r$/g, 'R');
-      result = result.replace(/r/g, 'ɾ');
+// Handle diphthongs - convert vowel sequences to vowel+glide where appropriate
+let processed = '';
+            let originalPos = 0;
+            let phonemePos = 0;
 
-      return result;
-    }
+for (let i = 0; i < phonemes.length; i++) {
+const char = phonemes[i];
 
-    // ---------------------------------------------------------
-    // Step 2: Syllabification with diphthong/hiatus + clusters
-    // ---------------------------------------------------------
-    function syllabify(phonemes, originalWord) {
-      const strongVowels = 'aeo';
-      const vowelsSet = new Set(vowels.split(''));
-      const weakSet = new Set(weakVowels.split(''));
+                // Track position in original word (skip non-vowel chars)
+                while (originalPos < (originalWord?.length || 0) && originalWord && !vowels.includes(originalWord[originalPos].toLowerCase())) {
+                    originalPos++;
+                }
+                
+if (vowels.includes(char) && i + 1 < phonemes.length && vowels.includes(phonemes[i + 1])) {
+const vowel1 = char;
+const vowel2 = phonemes[i + 1];
+                    const isVowel1Stressed = originalWord ? stressedWeakVowels.has(originalPos) : false;
+                    const isVowel2Stressed = originalWord ? stressedWeakVowels.has(originalPos + 1) : false;
+                    const isVowel1Stressed = stressedWeakVowels.has(phonemePos);
+                    const isVowel2Stressed = stressedWeakVowels.has(phonemePos + 1);
+                    
+                    console.log(`Checking vowel pair: ${vowel1}${vowel2} at phoneme positions ${phonemePos}-${phonemePos + 1}`);
+                    console.log(`Stressed status: ${vowel1}=${isVowel1Stressed}, ${vowel2}=${isVowel2Stressed}`);
 
-      // Find positions of stressed weak vowels (í/ú) by vowel index
-      const stressedWeakVowels = new Set();
-      if (originalWord && originalWord.length) {
-        let vowelIndex = 0;
-        for (let i = 0; i < originalWord.length; i++) {
-          const ch = originalWord[i];
-          const base = ch.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-          if (ch === 'í' || ch === 'Í' || ch === 'ú' || ch === 'Ú') {
-            stressedWeakVowels.add(vowelIndex);
-          }
-          if (vowelsSet.has(base)) vowelIndex++;
-        }
-      }
+// Check diphthong conditions
+const isDiphthong = 
+// Strong + unstressed weak
+(strongVowels.includes(vowel1) && weakVowels.includes(vowel2) && !isVowel2Stressed) ||
+// Unstressed weak + strong  
+(weakVowels.includes(vowel1) && strongVowels.includes(vowel2) && !isVowel1Stressed) ||
+// Two weak vowels (both unstressed for diphthong)
+(weakVowels.includes(vowel1) && weakVowels.includes(vowel2) && !isVowel1Stressed && !isVowel2Stressed);
 
-      // Diphthongization: i/u → j/w when unstressed in VV sequences
-      let processed = '';
-      let vIdx = 0;
-      for (let i = 0; i < phonemes.length; i++) {
-        const a = phonemes[i];
-        const b = phonemes[i + 1];
-        const aIsV = vowelsSet.has(a);
-        const bIsV = b ? vowelsSet.has(b) : false;
+                    console.log(`Is diphthong: ${isDiphthong}`);
+                    
+if (isDiphthong) {
+// Form diphthong: weak vowel becomes glide
+if (weakVowels.includes(vowel1)) {
+// First vowel is weak - becomes glide
+processed += vowel1 === 'i' ? 'j' : 'w';
+processed += vowel2;
+} else {
+// Second vowel is weak - becomes glide
+processed += vowel1;
+processed += vowel2 === 'i' ? 'j' : 'w';
+}
+i++; // Skip next vowel
+                        originalPos += 2;
+                        phonemePos += 2;
+} else {
+// Hiatus - keep separate
+processed += char;
+                        originalPos++;
+                        phonemePos++;
+}
+} else {
+processed += char;
+if (vowels.includes(char)) {
+                        originalPos++;
+                        phonemePos++;
+}
+}
+}
 
-        if (aIsV && bIsV) {
-          const aWeak = weakSet.has(a);
-          const bWeak = weakSet.has(b);
-          const aStressedWeak = aWeak && stressedWeakVowels.has(vIdx);
-          const bStressedWeak = bWeak && stressedWeakVowels.has(vIdx + 1);
+phonemes = processed;
 
-          const isDip =
-            (!aStressedWeak && !bStressedWeak) && (
-              (aWeak && !bWeak) || (!aWeak && bWeak) || (aWeak && bWeak)
-            );
+            // Now do syllabification
+            // Now do syllabification with proper cluster handling
+const syllables = [];
+let currentSyllable = '';
+let i = 0;
 
-          if (isDip) {
-            if (aWeak) processed += (a === 'i' ? 'j' : 'w') + b;
-            else if (bWeak) processed += a + (b === 'i' ? 'j' : 'w');
-            i++; vIdx += 2; continue;
-          } else {
-            processed += a; vIdx += 1; continue;
-          }
-        }
+while (i < phonemes.length) {
+const char = phonemes[i];
 
-        processed += a;
-        if (aIsV) vIdx += 1;
-      }
+if (vowels.includes(char) || char === 'j' || char === 'w') {
+currentSyllable += char;
 
-      // Syllable split with cluster handling
-      const syllables = [];
-      let cur = '';
-      let i = 0;
-      while (i < processed.length) {
-        const ch = processed[i];
-        cur += ch;
+// If this is a glide, get the following vowel too
+if ((char === 'j' || char === 'w') && i + 1 < phonemes.length && vowels.includes(phonemes[i + 1])) {
+i++;
+currentSyllable += phonemes[i];
+}
 
-        if (vowels.includes(ch)) {
-          // gather following consonants
-          let j = i + 1;
-          let cons = '';
-          while (j < processed.length && !vowels.includes(processed[j])) {
-            cons += processed[j];
-            j++;
-          }
+let consonantCluster = '';
+let j = i + 1;
 
-          if (cons.length === 0) {
-            syllables.push(cur); cur = ''; i++; continue;
-          }
+// Collect following consonants
+while (j < phonemes.length && consonants.includes(phonemes[j])) {
+consonantCluster += phonemes[j];
+j++;
+}
 
-          if (cons.length === 1) {
-            syllables.push(cur); cur = cons; i = i + 2; continue;
-          }
+const isWordEnd = j >= phonemes.length;
 
-          const lastTwo = cons.slice(-2);
-          if (validClusters.includes(lastTwo)) {
-            const coda = cons.slice(0, -2);
-            cur += coda;
-            syllables.push(cur);
-            cur = lastTwo;
-            i = j;
-          } else {
-            const coda = cons.slice(0, -1);
-            cur += coda;
-            syllables.push(cur);
-            cur = cons.slice(-1);
-            i = j;
-          }
-          continue;
-        }
-        i++;
-      }
-      if (cur) syllables.push(cur);
-      return syllables;
-    }
+if (consonantCluster.length === 0) {
+syllables.push(currentSyllable);
+currentSyllable = '';
+} else if (isWordEnd) {
+currentSyllable += consonantCluster;
+syllables.push(currentSyllable);
+currentSyllable = '';
+i = j;
+} else {
+                        const nextChar = phonemes[j];
+                        if (consonants.includes(nextChar)) {
+                            currentSyllable += consonantCluster[0];
+                            syllables.push(currentSyllable);
+                            currentSyllable = consonantCluster.slice(1);
+                            i = j - 1;
+                        } else {
+                        // Handle consonant clusters properly
+                        if (consonantCluster.length === 1) {
+                            // Single consonant goes to next syllable
+syllables.push(currentSyllable);
+currentSyllable = consonantCluster;
+i = j - 1;
+                        } else if (consonantCluster.length >= 2) {
+                            // Check if last two consonants form a valid cluster
+                            const lastTwo = consonantCluster.slice(-2);
+                            if (validClusters.includes(lastTwo)) {
+                                // Valid cluster - keep together in next syllable
+                                const codaConsonants = consonantCluster.slice(0, -2);
+                                currentSyllable += codaConsonants;
+                                syllables.push(currentSyllable);
+                                currentSyllable = lastTwo;
+                                i = j - 1;
+                            } else {
+                                // No valid cluster - split consonants
+                                const codaConsonants = consonantCluster.slice(0, -1);
+                                currentSyllable += codaConsonants;
+                                syllables.push(currentSyllable);
+                                currentSyllable = consonantCluster.slice(-1);
+                                i = j - 1;
+                            }
+}
+}
+} else {
+currentSyllable += char;
+}
+i++;
+}
 
-    // -----------------------------
-    // Step 3: Stress assignment
-    // -----------------------------
-    function applyStress(syllables, originalWord) {
-      if (!syllables.length) return syllables;
+if (currentSyllable) {
+syllables.push(currentSyllable);
+}
 
-      // If there is an acute accent, stress the syllable containing it
-      const acute = originalWord && originalWord.match(/[áéíóúÁÉÍÓÚ]/);
-      if (acute) {
-        const map = { 'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'a','É':'e','Í':'i','Ó':'o','Ú':'u' };
-        const v = map[acute[0]];
-        for (let i = syllables.length - 1; i >= 0; i--) {
-          if (syllables[i].includes(v)) {
-            syllables[i] = 'ˈ' + syllables[i];
-            return syllables;
-          }
-        }
-      }
+return syllables;
+}
 
-      const lastChar = originalWord?.[originalWord.length - 1] || '';
-      const endsInVowelNS = /[aeioun]$/i.test(lastChar);
+// Step 3: Apply stress to syllables
+function applyStress(syllables, originalWord) {
+if (syllables.length === 0) return syllables;
 
-      let idx;
-      if (syllables.length === 1) idx = 0;
-      else idx = endsInVowelNS ? syllables.length - 2 : syllables.length - 1;
+// Check for explicit stress mark (acute accent) in original word
+const acuteAccents = originalWord.match(/[áéíóú]/);
+if (acuteAccents) {
+// Find the syllable containing the stressed vowel
+const stressedVowel = acuteAccents[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const vowelMap = { 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u' };
+let syllableIndex = -1;
+syllables.forEach((syllable, index) => {
+if (syllable.includes(vowelMap[acuteAccents[0]])) {
+syllableIndex = index;
+}
+});
+if (syllableIndex >= 0) {
+syllables[syllableIndex] = 'ˈ' + syllables[syllableIndex];
+return syllables;
+}
+}
 
-      if (idx >= 0) syllables[idx] = 'ˈ' + syllables[idx];
-      return syllables;
-    }
+// Default stress rules for Spanish
+const lastChar = originalWord[originalWord.length - 1];
+const endsInVowelNS = /[aeioun]/i.test(lastChar);
 
-    // ------------------------------------------------
-    // Step 4: Dialectal / feature rules (same as yours)
-    // ------------------------------------------------
-    function applyRules(syllables, dialect, features) {
-      return syllables.map((syllable, index, arr) => {
-        let result = syllable;
+let stressedSyllableIndex;
+if (syllables.length === 1) {
+stressedSyllableIndex = 0;
+} else if (endsInVowelNS) {
+// Penultimate stress
+stressedSyllableIndex = syllables.length - 2;
+} else {
+// Final stress
+stressedSyllableIndex = syllables.length - 1;
+}
 
-        // Temporarily strip stress mark to operate
-        const hadStress = result.includes('ˈ');
-        if (hadStress) result = result.replace('ˈ', '');
+// Add stress mark to beginning of syllable
+if (stressedSyllableIndex >= 0) {
+syllables[stressedSyllableIndex] = 'ˈ' + syllables[stressedSyllableIndex];
+}
 
-        // Cádiz: r/ɾ → l̪ in coda or final
-        if (dialect === 'cadiz' && features.liquidSubCadiz) {
-          const last = index === arr.length - 1;
-          if (last) result = result.replace(/[ɾrR]$/, 'l̪');
-          result = result.replace(/[ɾrR](?=[bβdðgɣptkfθsxmnɲʝtʃjʃʒRθjwŋ])/g, 'l̪');
-        }
+return syllables;
+}
 
-        // Cádiz: delete final r in infinitives (simplified)
-        if (dialect === 'cadiz' && features.finalRDeletionCadiz) {
-          const last = index === arr.length - 1;
-          if (last) result = result.replace(/[ɾrR]$/, '');
-        }
+// Step 4: Apply phonological rules
+function applyRules(syllables, dialect, features) {
+return syllables.map((syllable, index, arr) => {
+let result = syllable;
 
-        // Cádiz: final s deletion/aspiration + preconsonantal aspiration
-        if (dialect === 'cadiz' && features.finalSDeletion) {
-          const last = index === arr.length - 1;
-          if (last) result = result.replace(/[sθ]$/, 'h');
-          result = result.replace(/[sθ](?=[bβdðgɣptkfxmnɲʝtʃjʃʒRθ])/g, 'h');
-        }
+// Handle stress mark preservation
+const hasStress = result.includes('ˈ');
+if (hasStress) {
+result = result.replace('ˈ', '');
+}
 
-        // R final handling (Rioplatense vs others)
-        if (dialect === 'rioplatense') {
-          const last = index === arr.length - 1;
-          if (last && /R/.test(result)) result = result.replace(/R/g, 'r'); // trill at end
-          else result = result.replace(/R/g, 'ɾ');
-        } else {
-          result = result.replace(/R/g, 'ɾ');
-        }
+                // Cádiz liquid substitution (r/ɾ → l̪ in syllable-final or word-final position)
+                if (dialect === 'cadiz' && features.liquidSubCadiz) {
+                    const isLastSyllable = index === arr.length - 1;
+                    
+                    if (isLastSyllable) {
+                        // Word-final: replace ɾ, r, or R at the end
+                        result = result.replace(/[ɾrR]$/, 'l̪');
+                    } else {
+                        // Syllable-final: replace ɾ, r, or R only before a consonant (coda position)
+                        result = result.replace(/[ɾrR](?=[bβdðgɣptkfθsxmnɲʝtʃjʃʒRθjwŋ])/g, 'l̪');
+                    }
+                }
+                
+// Cádiz ceceo - only affects orthographic c/z (θ), not orthographic s
+// This is already handled in orthographyToPhonemes where c/z → θ for Cádiz
+// Ceceo would be a different realization of θ, but we'll represent it as θ for simplicity
 
-        // Rioplatense: sheísmo
-        if (dialect === 'rioplatense' && features.sheismo) {
-          result = result.replace(/ʝ/g, 'ʃ');
-        }
+                // Cádiz final r-deletion in infinitives
+                // Cádiz final r-deletion in infinitives (casual speech)
+if (dialect === 'cadiz' && features.finalRDeletionCadiz) {
+const isLastSyllable = index === arr.length - 1;
+if (isLastSyllable) {
+                        // Delete word-final r/R (both taps and trills in infinitives)
+                        // Only delete word-final r/R in infinitives (words ending in -ar, -er, -ir)
+                        // This is a simplified check - in a full implementation, you'd check morphology
+result = result.replace(/[ɾrR]$/, '');
+}
+}
 
-        // Rioplatense: s aspiration
-        if (dialect === 'rioplatense' && features.sAspiration) {
-          const last = index === arr.length - 1;
-          if (last) result = result.replace(/s$/, 'h');
-          result = result.replace(/s(?=[bβdðgɣptkfθxmnɲʝtʃjʃʒRθ])/g, 'h');
-        }
+// Cádiz final s-deletion/aspiration
+if (dialect === 'cadiz' && features.finalSDeletion) {
+const isLastSyllable = index === arr.length - 1;
+if (isLastSyllable) {
+// Word-final s/θ → h or deletion
+result = result.replace(/[sθ]$/, 'h');
+}
+// Pre-consonantal s/θ → h
+result = result.replace(/[sθ](?=[bβdðgɣptkfxmnɲʝtʃjʃʒRθ])/g, 'h');
+}
 
-        // Rioplatense: optional final tap deletion
-        if (dialect === 'rioplatense' && features.finalRDeletion) {
-          const last = index === arr.length - 1;
-          if (last) result = result.replace(/ɾ$/, '');
-        }
+// Handle word-final R (potential for trill in sentence-final position, infinitives)
+if (dialect === 'rioplatense') {
+const isLastSyllable = index === arr.length - 1;
+if (isLastSyllable && result.includes('R')) {
+// Check if this is an infinitive or sentence-final position
+// For now, convert R to r (trill) in word-final position
+result = result.replace(/R/g, 'r');
+} else {
+// Convert R to tap in non-final positions
+result = result.replace(/R/g, 'ɾ');
+}
+} else {
+// For other dialects, convert R to tap
+result = result.replace(/R/g, 'ɾ');
+}
 
-        // Dominican: word-final n → ŋ
-        if (dialect === 'dominican' && features.nVelarization) {
-          const last = index === arr.length - 1;
-          if (last) result = result.replace(/n$/, 'ŋ');
-        }
+                // Dominican n-velarization (word-final n → ŋ)
+                if (dialect === 'dominican' && features.nVelarization) {
+                    const isLastSyllable = index === arr.length - 1;
+                    if (isLastSyllable) {
+                        // Word-final n → ŋ
+                        result = result.replace(/n$/, 'ŋ');
+                    }
+                }
+                
+// Dominican liquid substitution (r/ɾ → l̪ in syllable-final or word-final position)
+if (dialect === 'dominican' && features.liquidSub) {
+const isLastSyllable = index === arr.length - 1;
 
-        // Dominican: liquid substitution (r/ɾ → l̪) in coda/final
-        if (dialect === 'dominican' && features.liquidSub) {
-          const last = index === arr.length - 1;
-          if (last) result = result.replace(/[ɾrR]$/, 'l̪');
-          result = result.replace(/[ɾrR](?=[bβdðgɣptkfθsxmnɲʝtʃjʃʒRθ])/g, 'l̪');
-        }
+if (isLastSyllable) {
+// Word-final: replace ɾ, r, or R at the end
+result = result.replace(/[ɾrR]$/, 'l̪');
+} else {
+// Syllable-final: replace ɾ, r, or R only before a consonant (coda position)
+result = result.replace(/[ɾrR](?=[bβdðgɣptkfθsxmnɲʝtʃjʃʒRθ])/g, 'l̪');
+}
+}
 
-        // Dominican: s deletion (very simplified)
-        if (dialect === 'dominican' && features.sDelete) {
-          result = result.replace(/s$/g, '');
-          result = result.replace(/s(?=[ptkg])/g, '');
-        }
+// Rioplatense sheísmo (ll/y → ʃ)
+if (dialect === 'rioplatense' && features.sheismo) {
+result = result.replace(/ʝ/g, 'ʃ');
+}
 
-        // Mexican: assibilated R (very simplified)
-        if (dialect === 'mexican' && features.assibilatedR) {
-          if (!/^(ɾ|r|R)/.test(result)) {
-            result = result.replace(/ɾ/g, 'ʂ').replace(/r/g, 'ʂ').replace(/R/g, 'ʂ');
-          }
-        }
+// Rioplatense s-aspiration (s → h before consonants and word-finally)
+if (dialect === 'rioplatense' && features.sAspiration) {
+const isLastSyllable = index === arr.length - 1;
 
-        // Lenition (rough, as in your version)
-        result = result.replace(/b(?![mnɲ])/g, 'β');
-        result = result.replace(/([mnɲ])β/g, '$1b');
-        result = result.replace(/d/g, 'ð');
-        result = result.replace(/([mnɲl̪])ð/g, '$1d');
-        result = result.replace(/g(?![mnɲ])/g, 'ɣ');
-        result = result.replace(/([mnɲ])ɣ/g, '$1g');
+if (isLastSyllable) {
+// Word-final s → h
+result = result.replace(/s$/, 'h');
+}
+// Pre-consonantal s → h
+result = result.replace(/s(?=[bβdðgɣptkfθxmnɲʝtʃjʃʒRθ])/g, 'h');
+}
 
-        // Add dental diacritic to l if missing
-        result = result.replace(/l(?!̪)/g, 'l̪');
+// Rioplatense final r-deletion (optional - some speakers delete word-final /ɾ/)
+if (dialect === 'rioplatense' && features.finalRDeletion) {
+const isLastSyllable = index === arr.length - 1;
+if (isLastSyllable) {
+// Only delete taps, not trills (keep the emphatic/infinitive r)
+result = result.replace(/ɾ$/, '');
+}
+}
 
-        // Restore stress mark
-        if (hadStress) result = 'ˈ' + result;
-        return result;
-      });
-    }
+// General Spanish rules: voiced stops → fricatives except after pause, nasals, and /l/ (for /d/)
+// b → β everywhere except after pause or nasals
+result = result.replace(/b(?![mnɲ])/g, 'β');
+// Keep b after nasals
+result = result.replace(/([mnɲ])β/g, '$1b');
 
-    // ------------------------------------------------
-    // Step 5: Full transcription
-    // ------------------------------------------------
-    function transcribe() {
-      const input = document.getElementById('inputText').value;
-      if (!input.trim()) return;
+// d → ð everywhere except after pause, nasals, or /l/
+result = result.replace(/d/g, 'ð');  
+// Keep d after nasals and /l/
+result = result.replace(/([mnɲl̪])ð/g, '$1d');
 
-      const dialect = document.getElementById('dialectSelect').value;
-      const features = {
-        liquidSubCadiz: document.getElementById('liquidSubCadiz')?.checked,
-        nVelarization: document.getElementById('nVelarization')?.checked,
-        ceceo: document.getElementById('ceceo')?.checked,
-        finalRDeletionCadiz: document.getElementById('finalRDeletionCadiz')?.checked,
-        finalSDeletion: document.getElementById('finalSDeletion')?.checked,
+// g → ɣ everywhere except after pause or nasals
+result = result.replace(/g(?![mnɲ])/g, 'ɣ');
+// Keep g after nasals  
+result = result.replace(/([mnɲ])ɣ/g, '$1g');
 
-        liquidSub: document.getElementById('liquidSub')?.checked,
-        sDelete: document.getElementById('sDelete')?.checked,
-        assibilatedR: document.getElementById('assibilatedR')?.checked,
-        sheismo: document.getElementById('sheismo')?.checked,
-        sAspiration: document.getElementById('sAspiration')?.checked,
-        finalRDeletion: document.getElementById('finalRDeletion')?.checked,
-        showSyllables: document.getElementById('showSyllables')?.checked
-      };
+// Mexican assibilated R
+if (dialect === 'mexican' && features.assibilatedR) {
+// Mexican r/ɾ → ʂ (except word-initial and trills)
+if (!result.startsWith('ɾ') && !result.startsWith('r') && !result.startsWith('R')) {
+result = result.replace(/ɾ/g, 'ʂ');
+result = result.replace(/r/g, 'ʂ');
+result = result.replace(/R/g, 'ʂ');
+}
+}
 
-      // tokenization similar to your original
-      const words = input
-        .toLowerCase()
-        .replace(/[.,;:!?¡¿()«»"“”'’\[\]{}]/g, ' ')
-        .split(/\s+/)
-        .filter(w => w.trim());
+// Dominican s-deletion
+if (dialect === 'dominican' && features.sDelete) {
+result = result.replace(/s$/g, ''); // Final s
+result = result.replace(/s(?=[ptkg])/g, ''); // Pre-consonantal s
+}
 
-      const results = [];
+// Add dental diacritic to all l (but not if already l̪)
+result = result.replace(/l(?!̪)/g, 'l̪');
 
-      words.forEach(word => {
-        let phonemes = orthographyToPhonemes(word, dialect);
-        let syllables = syllabify(phonemes, word);
-        syllables = applyStress(syllables, word);
+// Restore stress mark
+if (hasStress) {
+result = 'ˈ' + result;
+}
 
-        // Dominican initial r → ɣ on first syllable (your original idea)
-        if (dialect === 'dominican') {
-          if (syllables[0] && (/^ˈ?[ɾrR]/.test(syllables[0]))) {
-            if (syllables[0].startsWith('ˈɾ') || syllables[0].startsWith('ˈr') || syllables[0].startsWith('ˈR')) {
-              syllables[0] = 'ˈɣ' + syllables[0].slice(2);
-            } else if (syllables[0].startsWith('ɾ') || syllables[0].startsWith('r') || syllables[0].startsWith('R')) {
-              syllables[0] = 'ɣ' + syllables[0].slice(1);
-            }
-          }
-        }
+return result;
+});
+}
 
-        syllables = applyRules(syllables, dialect, features);
-        results.push(features.showSyllables ? syllables.join('.') : syllables.join(''));
-      });
+function transcribe() {
+const input = document.getElementById('inputText').value;
+if (!input.trim()) return;
 
-      document.getElementById('transcriptionResult').textContent = `[${results.join(' ')}]`;
-      document.getElementById('outputSection').style.display = 'block';
-    }
+const dialect = document.getElementById('dialectSelect').value;
+const features = {
+liquidSub: document.getElementById('liquidSub').checked,
+sDelete: document.getElementById('sDelete').checked,
+                nVelarization: document.getElementById('nVelarization').checked,
+assibilatedR: document.getElementById('assibilatedR').checked,
+sheismo: document.getElementById('sheismo').checked,
+sAspiration: document.getElementById('sAspiration').checked,
+finalRDeletion: document.getElementById('finalRDeletion').checked,
+ceceo: document.getElementById('ceceo').checked,
+finalRDeletionCadiz: document.getElementById('finalRDeletionCadiz').checked,
+finalSDeletion: document.getElementById('finalSDeletion').checked,
+showSyllables: document.getElementById('showSyllables').checked
+};
 
-    // Demo text
-    document.getElementById('inputText').value = 'hola chicos ..';
-  </script>
+// Split on whitespace and punctuation, preserving words
+const words = input.toLowerCase().replace(/[,!()]/g, ' ').split(/\s+/).filter(word => word.trim());
+const results = [];
+
+words.forEach(word => {
+if (word.trim()) {
+// Process word
+let phonemes = orthographyToPhonemes(word, dialect);
+let syllables = syllabify(phonemes, word);
+syllables = applyStress(syllables, word);
+
+// Apply Dominican velar r rule BEFORE other syllable processing
+if (dialect === 'dominican') {
+// Only the FIRST syllable can have word-initial r → ɣ
+if (syllables[0] && (syllables[0].startsWith('ɾ') || syllables[0].startsWith('r') || syllables[0].startsWith('R') ||
+syllables[0].startsWith('ˈɾ') || syllables[0].startsWith('ˈr') || syllables[0].startsWith('ˈR'))) {
+console.log('Dominican r rule - before:', syllables[0]);
+if (syllables[0].startsWith('ˈɾ')) {
+syllables[0] = 'ˈɣ' + syllables[0].slice(2);
+} else if (syllables[0].startsWith('ˈr')) {
+syllables[0] = 'ˈɣ' + syllables[0].slice(2);
+} else if (syllables[0].startsWith('ˈR')) {
+syllables[0] = 'ˈɣ' + syllables[0].slice(2);
+} else if (syllables[0].startsWith('ɾ')) {
+syllables[0] = 'ɣ' + syllables[0].slice(1);
+} else if (syllables[0].startsWith('r')) {
+syllables[0] = 'ɣ' + syllables[0].slice(1);
+} else if (syllables[0].startsWith('R')) {
+syllables[0] = 'ɣ' + syllables[0].slice(1);
+}
+console.log('Dominican r rule - after:', syllables[0]);
+}
+}
+
+syllables = applyRules(syllables, dialect, features);
+
+if (features.showSyllables) {
+results.push(syllables.join('.'));
+} else {
+results.push(syllables.join(''));
+}
+}
+});
+
+document.getElementById('transcriptionResult').textContent = `[${results.join(' ')}]`;
+document.getElementById('outputSection').style.display = 'block';
+}
+</script>
 </body>
 </html>
+
+
