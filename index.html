@@ -44,4 +44,442 @@
     .transcribe-btn {
       background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;
       padding: 12px 25px; border-radius: 8px; font-size: 16px; font-weight: bold;
-      cursor: pointer; transition: all .3s ease; box-shadow: 0 4px 15px rg
+      cursor: pointer; transition: all .3s ease; box-shadow: 0 4px 15px rgba(102,126,234,.3);
+    }
+    .transcribe-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,.4); }
+    .output-section { background: #f8f9fa; border-radius: 15px; padding: 25px; margin-top: 30px; }
+    .output-section h2 { color: #2c3e50; margin-bottom: 20px; }
+    .transcription-result {
+      background: white; border: 2px solid #e0e6ed; border-radius: 10px; padding: 20px;
+      font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.8; color: #2c3e50;
+      min-height: 100px; white-space: pre-wrap;
+    }
+    .feature-toggle { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,.1); }
+    .feature-toggle h3 { margin-bottom: 15px; color: #2c3e50; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+    .feature-item { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 5px; transition: background-color .2s ease; }
+    .feature-item:hover { background-color: #f0f0f0; }
+    .feature-item input[type="checkbox"] { margin: 0; }
+    .feature-item label { font-size: 14px; color: #555; cursor: pointer; }
+    .dialect-selector { margin-bottom: 20px; }
+    .dialect-selector select {
+      padding: 10px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 16px; background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Spanish IPA Transcriber</h1>
+      <p class="subtitle">Dominican, Mexican, Rioplatense, and Cádiz varieties with syllabification</p>
+    </div>
+
+    <div class="main-content">
+      <div class="input-section">
+        <h2>Enter Spanish Text</h2>
+        <textarea id="inputText" placeholder="Enter Spanish text here...">hola chicos</textarea>
+      </div>
+
+      <div class="dialect-selector">
+        <label for="dialectSelect">Choose dialect: </label>
+        <select id="dialectSelect">
+          <option value="dominican">Dominican (Santo Domingo)</option>
+          <option value="mexican">Mexican (Mexico City)</option>
+          <option value="rioplatense">Rioplatense (Buenos Aires/Montevideo)</option>
+          <option value="cadiz">Cádiz (Andalusian)</option>
+        </select>
+      </div>
+
+      <div class="feature-toggle">
+        <h3>Features</h3>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <input type="checkbox" id="liquidSubCadiz" checked>
+            <label for="liquidSubCadiz">Liquid substitution r→l̪ (Cádiz)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="nVelarization" checked>
+            <label for="nVelarization">N-velarization n→ŋ (Dominican)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="ceceo" checked>
+            <label for="ceceo">Ceceo distinction θ≠s (Cádiz)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="finalRDeletionCadiz" checked>
+            <label for="finalRDeletionCadiz">Final r-deletion (Cádiz casual)</label>
+          </div>
+
+          <!-- NEW: Cádiz infinitive/stressed-final options -->
+          <div class="feature-item">
+            <input type="checkbox" id="cadizInfinitiveAccent" checked>
+            <label for="cadizInfinitiveAccent">Cádiz: infinitive ˈVɾ → ˈV (-ar/-er/-ir)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="cadizStressedFinalRZero">
+            <label for="cadizStressedFinalRZero">Cádiz: stressed final r→∅ (ˈVɾ → ˈV)</label>
+          </div>
+          <!-- /NEW -->
+
+          <div class="feature-item">
+            <input type="checkbox" id="finalSDeletion" checked>
+            <label for="finalSDeletion">Final s-deletion/aspiration (Cádiz)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="liquidSub" checked>
+            <label for="liquidSub">Liquid substitution r→l̪ (Dominican)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="sDelete" checked>
+            <label for="sDelete">S-deletion (Dominican)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="assibilatedR" checked>
+            <label for="assibilatedR">Assibilated r→ʂ (Mexican)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="sheismo" checked>
+            <label for="sheismo">Sheísmo ll/y→ʃ (Rioplatense)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="sAspiration" checked>
+            <label for="sAspiration">S-aspiration s→h (Rioplatense)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="finalRDeletion" checked>
+            <label for="finalRDeletion">Final tap deletion (Rioplatense casual)</label>
+          </div>
+          <div class="feature-item">
+            <input type="checkbox" id="showSyllables" checked>
+            <label for="showSyllables">Show syllable boundaries</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="transcribe-btn" onclick="transcribe()">Transcribe</button>
+      </div>
+
+      <div class="output-section" id="outputSection" style="display:none;">
+        <h2>IPA Transcription</h2>
+        <div class="transcription-result" id="transcriptionResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const vowels = 'aeiou';
+    const weakVowels = 'iu';
+    const consonants = 'bβdðgɣptkfθsxmnɲlrɾʝtʃɲjʃʒRθjwŋ';
+    const validClusters = ['bl','br','kl','kr','dl','dr','fl','fr','gl','gr','pl','pr','tl','tr'];
+
+    function orthographyToPhonemes(text, dialect) {
+      let result = (text || '').toLowerCase();
+      result = result.replace(/ch/g, 'tʃ');
+      result = result.replace(/h/g, '');
+      result = result.replace(/ll/g, 'ʝ');
+      result = result.replace(/rr/g, 'r');
+      result = result.replace(/qu/g, 'k');
+
+      if (dialect === 'cadiz') {
+        result = result.replace(/c([ei])/g, 'θ$1');
+        result = result.replace(/z/g, 'θ');
+      } else {
+        result = result.replace(/c([ei])/g, 's$1');
+        result = result.replace(/z/g, 's');
+      }
+      result = result.replace(/c/g, 'k');
+
+      result = result.replace(/g([ei])/g, 'x$1');
+      result = result.replace(/gu([ei])/g, 'g$1');
+      result = result.replace(/v/g, 'b');
+      result = result.replace(/y(?=[aeiou])/g, 'ʝ');
+      result = result.replace(/y$/g, 'i');
+      result = result.replace(/([aeiou])y/g, '$1i');
+      result = result.replace(/^y/g, 'ʝ');
+      result = result.replace(/j/g, 'x');
+      result = result.replace(/ñ/g, 'ɲ');
+      result = result.replace(/r$/g, 'R');
+      result = result.replace(/r/g, 'ɾ');
+
+      return result;
+    }
+
+    function syllabify(phonemes, originalWord) {
+      const strongVowels = 'aeo';
+      const vowelsSet = new Set(vowels.split(''));
+      const weakSet = new Set(weakVowels.split(''));
+
+      const stressedWeakVowels = new Set();
+      if (originalWord && originalWord.length) {
+        let vowelIndex = 0;
+        for (let i = 0; i < originalWord.length; i++) {
+          const ch = originalWord[i];
+          const base = ch.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+          if (ch === 'í' || ch === 'Í' || ch === 'ú' || ch === 'Ú') {
+            stressedWeakVowels.add(vowelIndex);
+          }
+          if (vowelsSet.has(base)) vowelIndex++;
+        }
+      }
+
+      let processed = '';
+      let vIdx = 0;
+      for (let i = 0; i < phonemes.length; i++) {
+        const a = phonemes[i];
+        const b = phonemes[i + 1];
+        const aIsV = vowelsSet.has(a);
+        const bIsV = b ? vowelsSet.has(b) : false;
+
+        if (aIsV && bIsV) {
+          const aWeak = weakSet.has(a);
+          const bWeak = weakSet.has(b);
+          const aStressedWeak = aWeak && stressedWeakVowels.has(vIdx);
+          const bStressedWeak = bWeak && stressedWeakVowels.has(vIdx + 1);
+
+          const isDip = (!aStressedWeak && !bStressedWeak) && (
+            (aWeak && !bWeak) || (!aWeak && bWeak) || (aWeak && bWeak)
+          );
+
+          if (isDip) {
+            if (aWeak) processed += (a === 'i' ? 'j' : 'w') + b;
+            else if (bWeak) processed += a + (b === 'i' ? 'j' : 'w');
+            i++; vIdx += 2; continue;
+          } else {
+            processed += a; vIdx += 1; continue;
+          }
+        }
+
+        processed += a;
+        if (aIsV) vIdx += 1;
+      }
+
+      const syllables = [];
+      let cur = '';
+      let i = 0;
+      while (i < processed.length) {
+        const ch = processed[i];
+        cur += ch;
+
+        if (vowels.includes(ch)) {
+          let j = i + 1;
+          let cons = '';
+          while (j < processed.length && !vowels.includes(processed[j])) {
+            cons += processed[j];
+            j++;
+          }
+
+          if (cons.length === 0) {
+            syllables.push(cur); cur = ''; i++; continue;
+          }
+
+          if (cons.length === 1) {
+            syllables.push(cur); cur = cons; i = i + 2; continue;
+          }
+
+          const lastTwo = cons.slice(-2);
+          if (validClusters.includes(lastTwo)) {
+            const coda = cons.slice(0, -2);
+            cur += coda;
+            syllables.push(cur);
+            cur = lastTwo;
+            i = j;
+          } else {
+            const coda = cons.slice(0, -1);
+            cur += coda;
+            syllables.push(cur);
+            cur = cons.slice(-1);
+            i = j;
+          }
+          continue;
+        }
+        i++;
+      }
+      if (cur) syllables.push(cur);
+      return syllables;
+    }
+
+    function applyStress(syllables, originalWord) {
+      if (!syllables.length) return syllables;
+
+      const acute = originalWord && originalWord.match(/[áéíóúÁÉÍÓÚ]/);
+      if (acute) {
+        const map = { 'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'a','É':'e','Í':'i','Ó':'o','Ú':'u' };
+        const v = map[acute[0]];
+        for (let i = syllables.length - 1; i >= 0; i--) {
+          if (syllables[i].includes(v)) {
+            syllables[i] = 'ˈ' + syllables[i];
+            return syllables;
+          }
+        }
+      }
+
+      const lastChar = originalWord?.[originalWord.length - 1] || '';
+      const endsInVowelNS = /[aeiouns]$/i.test(lastChar);
+
+      let idx;
+      if (syllables.length === 1) idx = 0;
+      else idx = endsInVowelNS ? syllables.length - 2 : syllables.length - 1;
+
+      if (idx >= 0) syllables[idx] = 'ˈ' + syllables[idx];
+      return syllables;
+    }
+
+    // UPDATED: pass originalWord so we can detect infinitives
+    function applyRules(syllables, dialect, features, originalWord) {
+      return syllables.map((syllable, index, arr) => {
+        let result = syllable;
+        const hadStress = result.includes('ˈ');
+        if (hadStress) result = result.replace('ˈ', '');
+
+        // ===== Cádiz rules =====
+        if (dialect === 'cadiz' && features.liquidSubCadiz) {
+          result = result.replace(/[ɾrR]$/g, 'l̪');
+          result = result.replace(/[ɾrR](?=[bβdðgɣptkfθsxmnɲʝtʃjʃʒRθjwŋ])/g, 'l̪');
+        }
+
+        // NEW: Cádiz infinitive ˈVɾ → ˈV (only last syllable, only -ar/-er/-ir, requires stress)
+        if (dialect === 'cadiz' && features.cadizInfinitiveAccent) {
+          const isLast = index === arr.length - 1;
+          const isInf = /(?:ar|er|ir)$/i.test(originalWord || '');
+          if (isLast && isInf && hadStress) {
+            result = result.replace(/([aeiou])[ɾrR]$/i, '$1'); // drop final r after stressed vowel
+          }
+        }
+
+        // NEW: Cádiz stressed final r→∅ for any word (last syllable, stressed)
+        if (dialect === 'cadiz' && features.cadizStressedFinalRZero) {
+          const isLast = index === arr.length - 1;
+          if (isLast && hadStress) {
+            result = result.replace(/([aeiou])[ɾrR]$/i, '$1');
+          }
+        }
+
+        // Existing Cádiz casual final r deletion (kept; harmless if already deleted)
+        if (dialect === 'cadiz' && features.finalRDeletionCadiz) {
+          const last = index === arr.length - 1;
+          if (last) result = result.replace(/[ɾrR]$/, '');
+        }
+
+        if (dialect === 'cadiz' && features.finalSDeletion) {
+          const last = index === arr.length - 1;
+          if (last) result = result.replace(/[sθ]$/, 'h');
+          result = result.replace(/[sθ](?=[bβdðgɣptkfxmnɲʝtʃjʃʒRθ])/g, 'h');
+        }
+        // ===== /Cádiz rules =====
+
+        if (dialect === 'rioplatense') {
+          const last = index === arr.length - 1;
+          if (last && /R/.test(result)) result = result.replace(/R/g, 'r');
+          else result = result.replace(/R/g, 'ɾ');
+        } else {
+          result = result.replace(/R/g, 'ɾ');
+        }
+
+        if (dialect === 'rioplatense' && features.sheismo) {
+          result = result.replace(/ʝ/g, 'ʃ');
+        }
+
+        if (dialect === 'rioplatense' && features.sAspiration) {
+          const last = index === arr.length - 1;
+          if (last) result = result.replace(/s$/, 'h');
+          result = result.replace(/s(?=[bβdðgɣptkfθxmnɲʝtʃjʃʒRθ])/g, 'h');
+        }
+
+        if (dialect === 'rioplatense' && features.finalRDeletion) {
+          const last = index === arr.length - 1;
+          if (last) result = result.replace(/ɾ$/, '');
+        }
+
+        if (dialect === 'dominican' && features.nVelarization) {
+          const last = index === arr.length - 1;
+          if (last) result = result.replace(/n$/, 'ŋ');
+        }
+
+        if (dialect === 'dominican' && features.liquidSub) {
+          result = result.replace(/[ɾrR]$/g, 'l̪');
+          result = result.replace(/[ɾrR](?=[bβdðgɣptkfθsxmnɲʝtʃjʃʒRθjwŋl̪])/g, 'l̪');
+        }
+
+        if (dialect === 'dominican' && features.sDelete) {
+          result = result.replace(/s$/g, '');
+          result = result.replace(/s(?=[ptkg])/g, '');
+        }
+
+        if (dialect === 'mexican' && features.assibilatedR) {
+          if (!/^(ɾ|r|R)/.test(result)) {
+            result = result.replace(/ɾ/g, 'ʂ').replace(/r/g, 'ʂ').replace(/R/g, 'ʂ');
+          }
+        }
+
+        // allophony
+        result = result.replace(/b(?![mnɲ])/g, 'β');
+        result = result.replace(/([mnɲ])β/g, '$1b');
+        result = result.replace(/d/g, 'ð');
+        result = result.replace(/([mnɲl̪])ð/g, '$1d');
+        result = result.replace(/g(?![mnɲ])/g, 'ɣ');
+        result = result.replace(/([mnɲ])ɣ/g, '$1g');
+        result = result.replace(/l(?!̪)/g, 'l̪');
+
+        if (hadStress) result = 'ˈ' + result;
+        return result;
+      });
+    }
+
+    function transcribe() {
+      const input = document.getElementById('inputText').value;
+      if (!input.trim()) return;
+
+      const dialect = document.getElementById('dialectSelect').value;
+      const features = {
+        liquidSubCadiz: document.getElementById('liquidSubCadiz')?.checked,
+        nVelarization: document.getElementById('nVelarization')?.checked,
+        ceceo: document.getElementById('ceceo')?.checked,
+        finalRDeletionCadiz: document.getElementById('finalRDeletionCadiz')?.checked,
+        // NEW:
+        cadizInfinitiveAccent: document.getElementById('cadizInfinitiveAccent')?.checked,
+        cadizStressedFinalRZero: document.getElementById('cadizStressedFinalRZero')?.checked,
+        // /NEW
+        finalSDeletion: document.getElementById('finalSDeletion')?.checked,
+        liquidSub: document.getElementById('liquidSub')?.checked,
+        sDelete: document.getElementById('sDelete')?.checked,
+        assibilatedR: document.getElementById('assibilatedR')?.checked,
+        sheismo: document.getElementById('sheismo')?.checked,
+        sAspiration: document.getElementById('sAspiration')?.checked,
+        finalRDeletion: document.getElementById('finalRDeletion')?.checked,
+        showSyllables: document.getElementById('showSyllables')?.checked
+      };
+
+      const words = input
+        .toLowerCase()
+        .replace(/[.,;:!?¡¿()«»"""''\[\]{}]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w.trim());
+
+      const results = [];
+
+      words.forEach(word => {
+        let phonemes = orthographyToPhonemes(word, dialect);
+        let syllables = syllabify(phonemes, word);
+        syllables = applyStress(syllables, word);
+
+        if (dialect === 'dominican') {
+          if (syllables[0] && (/^ˈ?[ɾrR]/.test(syllables[0]))) {
+            if (syllables[0].startsWith('ˈɾ') || syllables[0].startsWith('ˈr') || syllables[0].startsWith('ˈR')) {
+              syllables[0] = 'ˈɣ' + syllables[0].slice(2);
+            } else if (syllables[0].startsWith('ɾ') || syllables[0].startsWith('r') || syllables[0].startsWith('R')) {
+              syllables[0] = 'ɣ' + syllables[0].slice(1);
+            }
+          }
+        }
+
+        syllables = applyRules(syllables, dialect, features, word);
+        results.push(features.showSyllables ? syllables.join('.') : syllables.join(''));
+      });
+
+      document.getElementById('transcriptionResult').textContent = `[${results.join(' ')}]`;
+      document.getElementById('outputSection').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
